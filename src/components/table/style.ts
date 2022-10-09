@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const Container = styled.main`
   display: flex;
   flex-direction: row;
-  padding: 2.5rem 3rem;
+  padding: .1rem 3rem;
   
   table {
     width: 100%;
@@ -12,14 +12,15 @@ export const Container = styled.main`
     
     th { 
      color: var(--text-body); 
-     font-weight: 400;
-     padding: 1rem 2rem;
-     text-align: left;
-     line-height: 1.5rem;
+     font-weight: 300;
+     padding: .5rem 2rem;
+     text-align: center;
+     line-height: .5rem;
     }
     td { 
-      padding: 1rem 2rem;
+      padding: .8rem 1.5rem;
       border: 0;
+      text-align: center;
       background: var(--shape);
       color: var(--text-body);     
       border-radius: 0.25rem;

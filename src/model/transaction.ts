@@ -1,6 +1,6 @@
 export interface Transition {
   id?: number;
-  title: string;
+  fundo: string;
   amount: number;
   category: string;
   createdAt: string;

@@ -17,7 +17,7 @@ interface Props {
 
 export function ModalHome(props: Props) {
   const [type, setType] = useState('entrada');
-  const [title, setTitle] = useState('');
+  const [fundo, setFundo] = useState('');
   const [amount, setAmount] = useState(0);
   const [category, setCategory] = useState('');
 
@@ -33,7 +33,7 @@ export function ModalHome(props: Props) {
     const createdAt = '2022-04-22'
     const data: Transition = {
       type,
-      title,
+      fundo,
       amount,
       category,
       createdAt
@@ -68,7 +68,7 @@ export function ModalHome(props: Props) {
       </button>
       <Container onSubmit={hadleCreateNewTrasaction}>
         <h2>Investir</h2>
-        <input type="text" value={title} onChange={e => setTitle(e.target.value)} placeholder="Nome do Fundo" />
+        <input type="text" value={fundo} onChange={e => setFundo(e.target.value)} placeholder="Nome do Fundo" />
         <input type="number" value={amount} onChange={e => setAmount(Number(e.target.value))} placeholder="valor" /><br />
         <TrasactionTypeContainer>
           <ButtonBox

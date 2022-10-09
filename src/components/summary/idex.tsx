@@ -13,7 +13,7 @@ export function Summary(props: Props) {
       <div className={props.className ? "diferent" : ""}>
         <header>
           <p>{props.title}</p>
-          <img src={props.image} />
+          <img src={props.image} alt="Ola" />
         </header>
         <strong>R$ {props.value}</strong>
       </div>

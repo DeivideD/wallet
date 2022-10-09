@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Home } from './components/pages/home';
 import { ContextTransactionProvider } from './contexts/context';
 import { Router } from './components/router/router';
+import { Footer } from './components/footer';
 
 createServer({
   models: {
@@ -15,18 +16,18 @@ createServer({
       transactions: [
         {
           id: 1,
-          title: 'Salario',
-          type: 'deposit',
-          category: 'Salario',
+          fundo: 'BCFF11',
+          type: 'FII',
+          category: 'Renda Variavel',
           amount: 6000,
           createdAt: new Date('2022-04-21'),
         },
         {
           id: 2,
-          title: 'supermercado',
-          type: 'exit',
-          category: 'compras',
-          amount: 700,
+          fundo: 'CPTS11',
+          type: 'FII',
+          category: 'Renda Variavel',
+          amount: 6000,
           createdAt: new Date('2022-04-21'),
         }
       ]
@@ -50,8 +51,9 @@ export function App() {
     <BrowserRouter>
       <ContextTransactionProvider>
         <GlobalStyle />
-        <Header></Header>
+        <Header />
         <Router />
+        <Footer/>
       </ContextTransactionProvider>
     </BrowserRouter>
   );

@@ -1,5 +1,11 @@
+import { Container } from "./style";
+
+
 export function Transactions(){
   return(
-    <>Ola Transactions</>
+    <Container>
+      Ola Transactions
+    </Container>
+    
   )
 }
