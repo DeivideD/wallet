@@ -1,7 +1,7 @@
 import { ownKeys } from "./obj";
 
 type VoPrimitives = string | boolean | number | undefined | null | VO;
-export type VoValues = VoPrimitives | VoPrimitives[];
+export type VoValues = VoPrimitives | VoPrimitives[] ;
 
 export interface VO {
   [p: string]: VoValues;

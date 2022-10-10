@@ -17,6 +17,5 @@ function transform(data: VO): TypeFund{
     id: ToInteger(data.id),
     name: toString(data.name),
     initials: toString(data.initials)
-
   });
 }

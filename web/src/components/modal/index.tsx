@@ -6,7 +6,7 @@ import incomeImg from '../../assets/income.svg'
 import { FormEvent, useContext, useState } from 'react';
 import { api } from '../../service/api';
 import { TrasactionContext } from '../../contexts/context';
-import { Transition } from '../../model/transaction';
+import { Transaction } from '../../model/transaction';
 
 Modal.setAppElement('#root');
 interface Props {
@@ -38,7 +38,7 @@ export function ModalHome(props: Props) {
     }
 
     const dataPersist  = await api.post('new-transaction', data)
-    const transaction: Transition = dataPersist.data.transaction;
+    const transaction: Transaction = dataPersist.data.transaction;
     console.log(transaction)
     setTransactions([
         ...transactions, 

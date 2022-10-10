@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { typeFundService } from "../../../service/type_found";
+import { transactionService } from "../../../service/trasactions";
 import { Dashboard } from "../../dashboard";
 import { TransactionTable } from "../../table";
 import { Container } from "./style";
@@ -10,7 +10,7 @@ export function Home(){
 
 
   useEffect(() => {
-   console.log(typeFundService());
+   console.log(transactionService());
   }, []);
 
   return(

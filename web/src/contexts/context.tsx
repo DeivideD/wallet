@@ -1,11 +1,11 @@
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useCallback, useEffect, useState } from 'react'
 import { ReactNode } from 'react'
-import { Transition } from '../model/transaction';
-import { api } from '../service/api';
+import { Transaction } from '../model/transaction';
+import { transactionService } from '../service/trasactions';
 
 interface TrasactionContextProps {
-  transactions: Transition[];
-  setTransactions: (transactions: Transition[]) => void
+  transactions: Transaction[];
+  setTransactions: (transactions: Transaction[]) => void
 }
 
 export const TrasactionContext = createContext<TrasactionContextProps>({} as TrasactionContextProps);
@@ -15,12 +15,15 @@ interface propsChidren {
 }
 export function ContextTransactionProvider({children}: propsChidren){
 
-  const [transactions, setTransactions] = useState<Transition[]>([])
+  const [transactions, setTransactions] = useState<Transaction[]>([])
 
-  // useEffect(() => {
-  //   api.get("transactions")
-  //   .then(response => setTransactions(response.data.transactions))
-  // }, [])
+  const getTransaction = useCallback( async () => {
+    return setTransactions(await transactionService());
+  }, []);
+
+  useEffect(() => {
+    getTransaction();
+  }, [getTransaction])
   
   return(
     <TrasactionContext.Provider value={{transactions, setTransactions}}>

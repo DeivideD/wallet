@@ -1,48 +1,5 @@
-import { Big } from "big.js";
 import { VO, isVo, VoValues } from "./vo";
 
-// interface FieldModelState {
-//   valid: boolean;
-//   touched: boolean;
-//   editing: boolean;
-//   focus: boolean;
-//   applicable: boolean;
-//   readonly: boolean;
-//   calculated: boolean;
-//   errorMessage: string;
-// }
-
-// export interface FieldModel extends FieldModelState {
-//   value: string;
-// }
-
-// export interface FieldModelVO<T extends VO | null> extends FieldModelState {
-//   value: T | null;
-// }
-
-// export function isFieldModel(value: any): value is FieldModel {
-//   return !!value && value.value !== undefined && typeof value.value === "string";
-// }
-
-// export function isFieldModelVO<T extends VO | null>(value: any): value is FieldModelVO<T> {
-//   return !!value && value.value !== undefined && (value.value === null || isVo(value.value));
-// }
-
-// function toFieldModel(value: string): FieldModel;
-// function toFieldModel<T extends VO | null>(value: T | null): FieldModelVO<T>;
-// function toFieldModel(value: string | VO | null) {
-//   return {
-//     errorMessage: "",
-//     valid: true,
-//     touched: false,
-//     editing: false,
-//     focus: false,
-//     applicable: true,
-//     readonly: false,
-//     calculated: false,
-//     value,
-//   };
-// }
 
   export function toString(value: VoValues): string {
     if (value === null) {
@@ -65,7 +22,7 @@ import { VO, isVo, VoValues } from "./vo";
     throw new Error(`"${String(value)}" not a decimal`);
   }
 
-  export function boolean(value: VoValues): boolean {
+  export function toBoolean(value: VoValues): boolean {
     if (value === null) {
       return false;
     }
