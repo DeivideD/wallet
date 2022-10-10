@@ -17,10 +17,10 @@ export function ContextTransactionProvider({children}: propsChidren){
 
   const [transactions, setTransactions] = useState<Transition[]>([])
 
-  useEffect(() => {
-    api.get("transactions")
-    .then(response => setTransactions(response.data.transactions))
-  }, [])
+  // useEffect(() => {
+  //   api.get("transactions")
+  //   .then(response => setTransactions(response.data.transactions))
+  // }, [])
   
   return(
     <TrasactionContext.Provider value={{transactions, setTransactions}}>

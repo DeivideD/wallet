@@ -1,8 +1,9 @@
+import { MonetaryFund } from "./monetary_fund";
+
 export interface Transition {
   id?: number;
-  fundo: string;
-  amount: number;
+  price: number;
+  monetaryFund: MonetaryFund
   category: string;
-  createdAt: string;
-  type: string;
+  quantity: number;
 };

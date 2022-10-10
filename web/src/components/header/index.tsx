@@ -1,8 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
 import logoImg from "../../assets/logo.svg"
-import { Menu } from "../menu/menu";
-import { ModalHome } from "../modal";
+import { Menu } from "../menu";
 import { Container, Content } from "./style"
 
 

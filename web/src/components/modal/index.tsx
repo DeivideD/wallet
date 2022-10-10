@@ -3,7 +3,6 @@ import { Container, TrasactionTypeContainer, ButtonBox } from './style';
 import Modal from 'react-modal';
 import closeImg from '../../assets/close.svg'
 import incomeImg from '../../assets/income.svg'
-import outcomeImg from '../../assets/outcome.svg'
 import { FormEvent, useContext, useState } from 'react';
 import { api } from '../../service/api';
 import { TrasactionContext } from '../../contexts/context';
@@ -17,7 +16,7 @@ interface Props {
 
 export function ModalHome(props: Props) {
   const [type, setType] = useState('entrada');
-  const [fundo, setFundo] = useState('');
+  const [monetaryFund, setMonetaryFund] = useState('');
   const [amount, setAmount] = useState(0);
   const [category, setCategory] = useState('');
 
@@ -31,9 +30,8 @@ export function ModalHome(props: Props) {
   async function hadleCreateNewTrasaction(e: FormEvent) {
     e.preventDefault();
     const createdAt = '2022-04-22'
-    const data: Transition = {
+    const data = {
       type,
-      fundo,
       amount,
       category,
       createdAt
@@ -68,7 +66,7 @@ export function ModalHome(props: Props) {
       </button>
       <Container onSubmit={hadleCreateNewTrasaction}>
         <h2>Investir</h2>
-        <input type="text" value={fundo} onChange={e => setFundo(e.target.value)} placeholder="Nome do Fundo" />
+        <input type="text" value={1} onChange={e => setMonetaryFund(e.target.value)} placeholder="Nome do Fundo" />
         <input type="number" value={amount} onChange={e => setAmount(Number(e.target.value))} placeholder="valor" /><br />
         <TrasactionTypeContainer>
           <ButtonBox
