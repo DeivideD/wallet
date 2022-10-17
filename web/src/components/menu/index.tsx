@@ -6,6 +6,7 @@ export function Menu() {
     <Container>
       <Link to="/home"><i className="fa fa-home"></i>home</Link>
       <Link to="/transactions"><i className="fa fa-home"></i>transaction</Link>
+      <Link to="/rendimentos"><i className="fa fa-home"></i>rendimentos</Link>
     </Container>
   );
 }
