@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   scope :api do
+    resources :yelds
     resources :transactions
     resources :monetary_funds
     resources :type_funds

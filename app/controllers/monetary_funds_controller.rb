@@ -7,7 +7,7 @@ class MonetaryFundsController < ApplicationController
   def index
     @monetary_funds = MonetaryFund.all
 
-    render json: @monetary_funds, include: [:type_fund]
+    render json: @monetary_funds
   end
 
   # GET /monetary_funds/1

@@ -5,6 +5,7 @@ export const GlobalStyle = createGlobalStyle`
 :root {
   --background-color: #f0f2f5;
   --red: #E52E4D;
+  --dark: #000;
   --blue: #5429CC;
   --blue-light: #5429aa;
   --text-title: #363F5F;
@@ -19,6 +20,10 @@ margin: 0;
 padding: 0;
 box-sizing: border-box;
 
+}
+
+html {
+  background: #000;
 }
 
 body, input, button, textarea{

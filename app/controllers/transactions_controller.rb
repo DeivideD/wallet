@@ -7,12 +7,12 @@ class TransactionsController < ApplicationController
   def index
     @transactions = Transaction.all
 
-    render json: @transactions, include: [:monetary_fund]
+    render json: @transactions
   end
 
   # GET /transactions/1
   def show
-    render json: @transaction, include: [:monetary_fund]
+    render json: @transaction
   end
 
   # POST /transactions

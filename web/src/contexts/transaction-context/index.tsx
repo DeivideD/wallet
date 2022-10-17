@@ -1,7 +1,6 @@
-import { createContext, useCallback, useEffect, useState } from 'react'
-import { ReactNode } from 'react'
-import { Transaction } from '../model/transaction';
-import { transactionService } from '../service/trasactions';
+import { createContext, ReactNode, useCallback, useEffect, useState } from "react";
+import { Transaction } from "../../model/transaction";
+import { transactionService } from "../../service/trasactions";
 
 interface TrasactionContextProps {
   transactions: Transaction[];
@@ -23,7 +22,7 @@ export function ContextTransactionProvider({children}: propsChidren){
 
   useEffect(() => {
     getTransaction();
-  }, [getTransaction])
+  },[getTransaction])
   
   return(
     <TrasactionContext.Provider value={{transactions, setTransactions}}>

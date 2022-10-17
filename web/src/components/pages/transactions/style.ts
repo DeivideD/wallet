@@ -2,5 +2,6 @@
 import styled from "styled-components";
 
 export const Container = styled.main`
-  background: #000;
+  max-width: 1180px;
+  margin: 0 auto;
 `;

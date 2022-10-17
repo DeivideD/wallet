@@ -5,7 +5,7 @@ import closeImg from '../../assets/close.svg'
 import incomeImg from '../../assets/income.svg'
 import { FormEvent, useContext, useState } from 'react';
 import { api } from '../../service/api';
-import { TrasactionContext } from '../../contexts/context';
+import { TrasactionContext } from '../../contexts/transaction-context';
 import { Transaction } from '../../model/transaction';
 
 Modal.setAppElement('#root');
@@ -14,7 +14,7 @@ interface Props {
   setIsOpen: (modalOpen: boolean) => void
 }
 
-export function ModalHome(props: Props) {
+export function ModalTrasaction(props: Props) {
   const [type, setType] = useState('entrada');
   const [monetaryFund, setMonetaryFund] = useState('');
   const [amount, setAmount] = useState(0);
@@ -39,7 +39,6 @@ export function ModalHome(props: Props) {
 
     const dataPersist  = await api.post('new-transaction', data)
     const transaction: Transaction = dataPersist.data.transaction;
-    console.log(transaction)
     setTransactions([
         ...transactions, 
         transaction
