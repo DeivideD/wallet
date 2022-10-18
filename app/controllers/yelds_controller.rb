@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class YeldsController < ApplicationController
-  before_action :set_yeld, only: [:show, :update, :destroy]
+  before_action :set_yeld, only: %i[show update destroy]
 
   # GET /yelds
   def index
@@ -39,13 +41,14 @@ class YeldsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_yeld
-      @yeld = Yeld.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def yeld_params
-      params.require(:yeld).permit(:monetary_funds_id, :total)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_yeld
+    @yeld = Yeld.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def yeld_params
+    params.require(:yeld).permit(:monetary_funds_id, :total)
+  end
 end
