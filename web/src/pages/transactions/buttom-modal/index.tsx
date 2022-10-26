@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { ModalTrasaction } from "../../../modal";
+import { ModalTrasaction } from "../../../components/modal";
+
 
 import { Content } from "./style";
 

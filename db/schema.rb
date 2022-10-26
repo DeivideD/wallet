@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_221_017_142_016) do
+ActiveRecord::Schema.define(version: 20_221_026_111_730) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 20_221_017_142_016) do
     t.string 'category'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.decimal 'entrnce_price'
+    t.decimal 'quantity'
     t.index ['type_fund_id'], name: 'index_monetary_funds_on_type_fund_id'
   end
 

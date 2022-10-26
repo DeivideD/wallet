@@ -3,14 +3,17 @@
 TypeFund.create([
                   { name: 'Fundos Imobiliarios', initials: 'FII' },
                   { name: 'Tesouro Direto', initials: 'TD' },
-                  { name: 'Açoes', initials: '' }
+                  { name: 'Ações', initials: 'AC' }
 
                 ])
 
 MonetaryFund.create([
-                      { name: 'BCFF11', type_fund: TypeFund.find_by(name: 'Fundos Imobiliarios'), category: 'Papel' },
-                      { name: 'ALZR11', type_fund: TypeFund.find_by(name: 'Fundos Imobiliarios'), category: 'Tijolo' },
-                      { name: 'CPTS11', type_fund: TypeFund.find_by(name: 'Fundos Imobiliarios'), category: 'Papel' }
+                      { name: 'BCFF11', type_fund: TypeFund.find_by(name: 'Fundos Imobiliarios'), category: 'Papel',
+                        quantity: 150, entrnce_price: 66.0 },
+                      { name: 'ALZR11', type_fund: TypeFund.find_by(name: 'Fundos Imobiliarios'), category: 'Tijolo',
+                        quantity: 10, entrnce_price: 107.0 },
+                      { name: 'CPTS11', type_fund: TypeFund.find_by(name: 'Fundos Imobiliarios'), category: 'Papel',
+                        quantity: 140, entrnce_price: 93.0 }
                     ])
 
 Transaction.create([

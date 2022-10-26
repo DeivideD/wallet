@@ -5,7 +5,7 @@ interface Props {
   width: string;
   height: string;
   data: [] | {};
-  options: {};
+  options?: {};
 }
 
 export function MyChart(options: Props){

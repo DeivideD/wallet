@@ -11,6 +11,10 @@ import { VO, isVo, VoValues } from "./vo";
     throw new Error(`"${String(value)}" not a string`);
   }
 
+  export function toVO(value: VoValues): VO{
+    return value as VO;
+  }
+
   export function toDecimal(value: VoValues): number {
     if (typeof value === "number") {
       return value;

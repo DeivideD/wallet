@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
-import { Home } from "../components/pages/home";
-import { Transactions } from "../components/pages/transactions/transactions";
-import { Yeld } from "../components/pages/yeld";
+import { Home } from "../pages/home";
+import { Transactions } from "../pages/transactions/transactions";
+import { Yeld } from "../pages/yeld";
 
 export function Router() {
   return (

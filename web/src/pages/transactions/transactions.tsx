@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { PageContext } from "../../../contexts/page-context";
-import { TransactionTable } from "../../table";
+import { TransactionTable } from "../../components/table";
+import { PageContext } from "../../contexts/page-context";
 import { ButonModalFooter } from "./buttom-modal";
 import { Container } from "./style";
 
