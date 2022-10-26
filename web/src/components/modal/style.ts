@@ -16,7 +16,7 @@ export const Container = styled.form`
     border: 1px solid #d7d7d7;
     background-color: #e7e9ee;
     font-weight: 1rem;
-    margin: 1rem 0;
+    margin: 0.3rem 1rem 1.2rem 0;
   }
 
   button[type="submit"] {

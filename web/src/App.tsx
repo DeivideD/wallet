@@ -6,7 +6,8 @@ import { Router } from './router/router';
 import { ContextYeldProvider } from './contexts/yeld-context';
 import { Footer } from './components/footer';
 import { ContextPageProvider } from './contexts/page-context';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export function App() {
   return (
@@ -15,6 +16,7 @@ export function App() {
         <ContextPageProvider>
           <BrowserRouter>
             <GlobalStyle />
+            <ToastContainer />
             <Header />
             <Router />
             <Footer />

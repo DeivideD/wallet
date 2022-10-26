@@ -6,10 +6,11 @@ import incomeImg from '../../assets/income.svg'
 import { FormEvent, useCallback, useContext, useEffect, useState } from 'react';
 import { api } from '../../service/api';
 import { TrasactionContext } from '../../contexts/transaction-context';
-import { Transaction } from '../../model/transaction';
 import Select, { SingleValue } from 'react-select'
-import { monetaryFundService } from '../../service/monetary_fund/monetary_fund';
+import { getMonetaryFundByTypeFund } from '../../service/monetary_fund/monetary_fund';
 import { MonetaryFund } from '../../model/monetary_fund';
+import { EntityToTrasaction } from '../../mapper/transaction';
+import { toast } from 'react-toastify';
 
 
 Modal.setAppElement('#root');
@@ -24,43 +25,42 @@ interface IntensSelct {
 }
 
 export function ModalTrasaction(props: Props) {
-  const [type, setType] = useState('acao');
-  const [monetaryFund, setMonetaryFund] = useState<MonetaryFund[]>([])
+  const defaultValueOption = { value: undefined, label: 'selecione...' }
+  const [type, setType] = useState('FII');
+  const [monetaryFunds, setMonetaryFunds] = useState<MonetaryFund[]>([])
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
-  const [monetaryFundId, setMonetaryFundId] = useState(0);
+  const [monetaryFundSelected, setMonetaryFundSelected] = useState<SingleValue<IntensSelct>>(defaultValueOption);
 
 
   const { transactions, setTransactions } = useContext(TrasactionContext);
 
-  const getMonetaryFund = useCallback(async () => setMonetaryFund(await monetaryFundService()), []);
+  const getFund = useCallback(async () => setMonetaryFunds(await getMonetaryFundByTypeFund(type)), [type]);
 
   useEffect(() => {
-    getMonetaryFund();
-  }, [getMonetaryFund])
+    getFund();
+  }, [getFund])
 
   function onCloseModal() {
     props.setIsOpen(false);
   }
 
-  const getItemSelected = useCallback((event: SingleValue<IntensSelct>) => {
-    if (event?.value) {
-      setMonetaryFundId(event.value);
-    }
-  }, [])
-
   async function hadleCreateNewTrasaction(e: FormEvent) {
     e.preventDefault();
+
+    if (monetaryFundSelected?.value === undefined) {
+      toast.warn("Selecione um ativo!!", { theme: "dark" })
+      return;
+    }
+
     const data = {
-      monetary_fund_id: monetaryFundId,
+      monetary_fund_id: monetaryFundSelected.value,
       quantity,
       price,
     }
 
     const dataPersist = await api.post('transactions', data)
-    const transaction: Transaction = {...dataPersist.data, MonetaryFund: dataPersist.data.monetary_fund};
-    console.log(transaction)
-    console.log(transactions)
+    const transaction = EntityToTrasaction(dataPersist.data);
     setTransactions([
       ...transactions,
       transaction
@@ -69,7 +69,12 @@ export function ModalTrasaction(props: Props) {
     onCloseModal();
   }
 
-  const monetaryOptions = monetaryFund.map(data => ({ value: data.id, label: data.name }))
+  const updateSelection = (type: string) => {
+    setMonetaryFundSelected(defaultValueOption);
+    setType(type);
+  }
+
+  const monetaryOptions = monetaryFunds.map(data => ({ value: data.id, label: data.name }))
   return (
 
     <Modal
@@ -88,20 +93,21 @@ export function ModalTrasaction(props: Props) {
       </button>
       <Container onSubmit={hadleCreateNewTrasaction}>
         <h2>Investir</h2>
-
+        <label>Ativo</label>
         <Select
           options={monetaryOptions}
           placeholder="Selecione..."
-          onChange={e => getItemSelected(e)}
+          onChange={e => setMonetaryFundSelected(e)}
+          value={monetaryFundSelected}
         /><br />
-
+        <label>Quantidade</label>
         <input
           type="number"
           value={quantity}
           onChange={e => setQuantity(Number(e.target.value))}
           placeholder="Quantidade"
         /><br />
-
+        <label>Valor</label>
         <input
           type="number"
           value={price}
@@ -111,21 +117,21 @@ export function ModalTrasaction(props: Props) {
         <TrasactionTypeContainer>
           <ButtonBox
             type="button"
-            isActive={type === 'entrada'}
-            onClick={() => setType("entrada")}
+            isActive={type === 'FII'}
+            onClick={() => updateSelection('FII')}
             activeColor="#33CC95"
           >
             <img src={incomeImg} alt="Fundos" />
-            <span>Fundos</span>
+            <span>Fundos Imobiliarios</span>
           </ButtonBox>
           <ButtonBox
             type="button"
-            isActive={type === 'saida'}
-            onClick={() => setType("saida")}
+            isActive={type === 'AC'}
+            onClick={() => updateSelection("AC")}
             activeColor="#33CC95"
           >
             <img src={incomeImg} alt="Ações" />
-            <span>Ações</span>
+            <span>Ações B3</span>
           </ButtonBox>
         </TrasactionTypeContainer>
         <button type="submit">Cadastrar</button>

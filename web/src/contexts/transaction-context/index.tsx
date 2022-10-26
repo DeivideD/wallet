@@ -22,7 +22,6 @@ export function ContextTransactionProvider({children}: propsChidren){
 
   useEffect(() => {
     getTransaction();
-    console.log(transactions)
   },[getTransaction])
   
   return(

@@ -3,7 +3,7 @@ import { VO } from "../../lib/vo";
 import { Transaction } from "../../model/transaction";
 import { MonetaryFoundToEntityResume } from "../monetary_fund";
 
-export function toDTO(data: Transaction){
+export function TrasactiontoDTO(data: Transaction){
   return {
     monetary_fund_id: data.monetaryFund?.id, 
     quantity: data.quantity,
@@ -12,7 +12,7 @@ export function toDTO(data: Transaction){
 }
 
 
-export function toEntty(data: VO): Transaction{  
+export function EntityToTrasaction(data: VO): Transaction{  
   return { 
     monetaryFund: MonetaryFoundToEntityResume(toVO(data.monetary_fund)),
     quantity: toDecimal(data.quantity),
