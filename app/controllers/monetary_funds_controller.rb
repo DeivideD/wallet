@@ -10,6 +10,12 @@ class MonetaryFundsController < ApplicationController
     render json: @monetary_funds
   end
 
+  def show_by_type
+    @monetary_funds = MonetaryFund.by_type_fund(params[:type])
+
+    render json: @monetary_funds
+  end
+
   # GET /monetary_funds/1
   def show
     render json: @monetary_fund
@@ -49,6 +55,6 @@ class MonetaryFundsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def monetary_fund_params
-    params.require(:monetary_fund).permit(:name, :type_fund_id, :category)
+    params.require(:monetary_fund).permit(:name, :type_fund_id, :category, :type)
   end
 end

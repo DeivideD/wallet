@@ -2,28 +2,25 @@ import styled from "styled-components";
 
 
 export const Container = styled.main`
-  display: flex;
-  flex-direction: row;
-  padding: .1rem 3rem;
-  
   table {
     width: 100%;
-    border-spacing: 0 0.5rem;
+
     
-    th { 
-     color: var(--text-body); 
-     font-weight: 300;
-     padding: .5rem 2rem;
-     text-align: center;
-     line-height: .5rem;
+    th {
+      z-index: 0;
     }
     td { 
-      padding: .8rem 1.5rem;
-      border: 0;
-      text-align: center;
-      background: var(--shape);
+      padding: .7rem 2.5rem;
       color: var(--text-body);     
       border-radius: 0.25rem;
+      font-weight: bolder;
+      cursor: pointer;    
+      &:first-child {
+        padding: .3rem 0 .5rem .5rem;
+      }  
+      &:last-child {
+        padding: .3rem 0 .5rem .5rem;
+      }  
     }
 
     &:first-child {

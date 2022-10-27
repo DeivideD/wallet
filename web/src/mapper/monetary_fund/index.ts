@@ -5,6 +5,7 @@ import { TypeFoundToEntity } from "../type_fund";
 
 export function MonetaryFoundToDTO(data: MonetaryFund) {
   return {
+    id: data.id,
     name: data.name,
     type_fund_id: data.typeFund?.id,
     category: data.category,
@@ -13,6 +14,7 @@ export function MonetaryFoundToDTO(data: MonetaryFund) {
 
 export function MonetaryFoundToEntity(data: VO): MonetaryFund {
   return {
+    id: ToInteger(data.id),
     name: toString(data.name),
     quantity: ToInteger(data.quantity),
     entrancePrice: toDecimal(data.entrance_price),
@@ -23,6 +25,7 @@ export function MonetaryFoundToEntity(data: VO): MonetaryFund {
 
 export function MonetaryFoundToEntityResume(data: VO): MonetaryFund {
   return {
+    id: ToInteger(data.id),
     name: toString(data.name),
     category: toString(data.category),
     quantity: ToInteger(data.quantity),

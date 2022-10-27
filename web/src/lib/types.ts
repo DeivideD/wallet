@@ -20,6 +20,11 @@ import { VO, isVo, VoValues } from "./vo";
       return value;
     }
 
+    if (typeof value === "undefined") {
+      return 0;
+    }
+
+
     if (typeof value === "string") {
       return parseFloat(value.trim());
     }

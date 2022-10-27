@@ -1,33 +1,26 @@
-import { useContext } from "react";
-import { TrasactionContext } from "../../contexts/transaction-context";
 import { Container } from "./style";
+import MUIDataTable, { MUIDataTableColumnDef } from "mui-datatables";
+import { ReactNode } from "react";
 
-export function TransactionTable() {
-  const { transactions } = useContext(TrasactionContext);
-  console.log(transactions)
+
+interface Props {
+  title: string;
+  columns: MUIDataTableColumnDef[];
+  data: Array<object>;
+  options?:Partial<object>;
+}
+
+export function GenericTable({title, columns, data, options}:Props) {
+
+
   return (
     <Container>
-      <table>
-        <thead>
-          <tr>
-            <th>Fundo</th>
-            <th>Quantidade</th>
-            <th>Preço</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          {transactions.map(transaction =>
-
-            <tr key={transaction.id}>
-              <td>{transaction.monetaryFund?.name}</td>
-              <td>{transaction.quantity}</td>
-              <td>{transaction.price}</td>
-              <td>{transaction.price * transaction.quantity}</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+      <MUIDataTable
+        title={title}
+        data={data}
+        columns={columns}
+        options={options}
+      />
     </Container>
   );
 }

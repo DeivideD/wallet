@@ -1,22 +1,26 @@
 
 import { Container, TrasactionTypeContainer, ButtonBox } from './style';
 import Modal from 'react-modal';
-import closeImg from '../../assets/close.svg'
-import incomeImg from '../../assets/income.svg'
+import closeImg from '../../../assets/close.svg'
+import incomeImg from '../../../assets/income.svg'
 import { FormEvent, useCallback, useContext, useEffect, useState } from 'react';
-import { api } from '../../service/api';
-import { TrasactionContext } from '../../contexts/transaction-context';
+import { api } from '../../../service/api';
+import { TrasactionContext } from '../../../contexts/transaction-context';
 import Select, { SingleValue } from 'react-select'
-import { getMonetaryFundByTypeFund } from '../../service/monetary_fund/monetary_fund';
-import { MonetaryFund } from '../../model/monetary_fund';
-import { EntityToTrasaction } from '../../mapper/transaction';
+import { getMonetaryFundByTypeFund } from '../../../service/monetary_fund/monetary_fund';
+import { MonetaryFund } from '../../../model/monetary_fund';
+import { EntityToTrasaction } from '../../../mapper/transaction';
 import { toast } from 'react-toastify';
+import { Transaction } from '../../../model/transaction';
 
 
 Modal.setAppElement('#root');
 interface Props {
   modalIsOpen: boolean;
-  setIsOpen: (modalOpen: boolean) => void
+  setIsOpen: (modalOpen: boolean) => void;
+  title: string;
+  action?: string;
+  transaction?: Transaction;
 }
 
 interface IntensSelct {
@@ -24,7 +28,7 @@ interface IntensSelct {
   label: string;
 }
 
-export function ModalTrasaction(props: Props) {
+export function ModalTrasaction({ title, transaction, setIsOpen, modalIsOpen, action = "insert" }: Props) {
   const defaultValueOption = { value: undefined, label: 'selecione...' }
   const [type, setType] = useState('FII');
   const [monetaryFunds, setMonetaryFunds] = useState<MonetaryFund[]>([])
@@ -39,15 +43,26 @@ export function ModalTrasaction(props: Props) {
 
   useEffect(() => {
     getFund();
-  }, [getFund])
+    if (transaction !== undefined) {
+      if (action === 'insert') {
+        setMonetaryFundSelected(defaultValueOption);
+        setQuantity(0);
+        setPrice(0);
+      } else {
+        setMonetaryFundSelected({ value: transaction.monetaryFund?.id, label: transaction.monetaryFund?.name ?? '' });
+        setQuantity(transaction.quantity);
+        setPrice(transaction.price);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getFund, transaction, action])
 
   function onCloseModal() {
-    props.setIsOpen(false);
+    setIsOpen(false);
   }
 
   async function hadleCreateNewTrasaction(e: FormEvent) {
     e.preventDefault();
-
     if (monetaryFundSelected?.value === undefined) {
       toast.warn("Selecione um ativo!!", { theme: "dark" })
       return;
@@ -59,13 +74,36 @@ export function ModalTrasaction(props: Props) {
       price,
     }
 
-    const dataPersist = await api.post('transactions', data)
-    const transaction = EntityToTrasaction(dataPersist.data);
-    setTransactions([
-      ...transactions,
-      transaction
-    ]
-    );
+    if (action === 'insert') {
+
+      const dataPersist = await api.post('transactions', data)
+      const transaction = EntityToTrasaction(dataPersist.data);
+      setTransactions([
+        ...transactions,
+        transaction
+      ]
+      );
+      toast.success("Trasação adicionada!!!", { theme: "dark" })
+    }else{
+      if (transaction !== undefined){
+        await api.put(`transactions/${transaction.id}`, data).catch((error: Error) => {
+          toast.error(error.message, { theme: "dark" });
+        });
+        //TODO: verificar o pq disso
+        transaction.quantity = data.quantity 
+        transaction.price = data.price 
+
+        const updatedTrasactions = transactions.filter(item => item.id !== transaction.id)
+        setTransactions([
+          ...updatedTrasactions,
+          transaction
+        ]
+        );
+        toast.success("Trasação atualizada!!!", { theme: "dark" })
+      }
+    }
+
+
     onCloseModal();
   }
 
@@ -80,9 +118,9 @@ export function ModalTrasaction(props: Props) {
     <Modal
       overlayClassName='react-modal-overlay'
       className="react-modal-content"
-      isOpen={props.modalIsOpen}
+      isOpen={modalIsOpen}
       onRequestClose={onCloseModal}
-      contentLabel="Example Modal"
+      contentLabel="Transaction Modal"
     >
       <button
         type="button"
@@ -92,11 +130,10 @@ export function ModalTrasaction(props: Props) {
         <img src={closeImg} alt="Fechar Modal" />
       </button>
       <Container onSubmit={hadleCreateNewTrasaction}>
-        <h2>Investir</h2>
+        <h2>{title}</h2>
         <label>Ativo</label>
         <Select
           options={monetaryOptions}
-          placeholder="Selecione..."
           onChange={e => setMonetaryFundSelected(e)}
           value={monetaryFundSelected}
         /><br />
@@ -134,7 +171,7 @@ export function ModalTrasaction(props: Props) {
             <span>Ações B3</span>
           </ButtonBox>
         </TrasactionTypeContainer>
-        <button type="submit">Cadastrar</button>
+        <button type="submit">Salvar</button>
       </Container>
     </Modal>
   )
