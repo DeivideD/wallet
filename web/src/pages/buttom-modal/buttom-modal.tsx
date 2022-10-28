@@ -1,7 +1,7 @@
 import { Content } from "./style";
 interface Props {
   openModal: (openModal: boolean) => void;
-  modalAction:  (openModal: string) => void;
+  modalAction: (openModal: string) => void;
 }
 export function ButonModalFooter({openModal, modalAction}: Props){
 

@@ -2,7 +2,7 @@ import { VO } from "../../lib/vo";
 import { TypeFund } from "../../model/type-fund";
 import { ToInteger, toString } from "../../lib/types";
 
-export function  TypeFoundToDTO(data: TypeFund ){
+export function TypeFoundToDTO(data: TypeFund ){
   return{ 
     id: data.id,
     name: data.name,
@@ -11,7 +11,7 @@ export function  TypeFoundToDTO(data: TypeFund ){
 }
 
 
-export function  TypeFoundToEntity(data: VO): TypeFund{
+export function TypeFoundToEntity(data: VO): TypeFund{
   return{ 
     id: ToInteger(data.id),
     name: toString(data.name),

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { toDecimal, ToInteger, toVO } from "../../lib/types";
 import { VO } from "../../lib/vo";
 import { Transaction } from "../../model/transaction";

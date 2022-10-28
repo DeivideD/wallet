@@ -1,6 +1,5 @@
 import { Container } from "./style";
 import MUIDataTable, { MUIDataTableColumnDef } from "mui-datatables";
-import { ReactNode } from "react";
 
 
 interface Props {
@@ -11,7 +10,6 @@ interface Props {
 }
 
 export function GenericTable({title, columns, data, options}:Props) {
-
 
   return (
     <Container>

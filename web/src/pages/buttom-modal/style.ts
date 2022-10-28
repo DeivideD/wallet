@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Content =  styled.div`
+export const Content = styled.div`
   max-width: 1120px;
   display: flex;
   align-items: center;

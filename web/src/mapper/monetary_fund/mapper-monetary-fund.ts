@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { VO } from "../../lib/vo";
 import { MonetaryFund } from "../../model/monetary-fund";
 import { ToInteger, toString, toVO, toDecimal } from "../../lib/types";
@@ -32,5 +33,3 @@ export function MonetaryFoundToEntityResume(data: VO): MonetaryFund {
     entrancePrice: toDecimal(data.entrance_price),
   }
 }
-
-

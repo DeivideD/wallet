@@ -12,7 +12,7 @@ export const TrasactionContext = createContext<TrasactionContextProps>({} as Tra
 interface propsChidren {
   children: ReactNode
 }
-export function ContextTransactionProvider({children}: propsChidren){
+export function ContextTransactionProvider( {children}: propsChidren) {
 
   const [transactions, setTransactions] = useState<Transaction[]>([])
 

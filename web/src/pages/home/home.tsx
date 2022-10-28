@@ -48,8 +48,6 @@ export function Home() {
     colors:['#cc2649','#33CC95', '#36bba6', '#ff4845']
   };
 
-
-
   const dataColumn = [
     ["Element", "total", { role: "style" }],
     ["Janeiro", 108.94, "#ef2b41"], // RGB value

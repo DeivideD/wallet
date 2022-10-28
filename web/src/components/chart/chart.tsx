@@ -1,14 +1,15 @@
+
 import Chart, { GoogleChartWrapperChartType } from "react-google-charts";
 
 interface Props {
   chartType: GoogleChartWrapperChartType;
   width: string;
   height: string;
-  data: [] | {};
-  options?: {};
+  data: [] | object;
+  options?: object;
 }
 
-export function MyChart(options: Props){
+export function MyChart(options: Props): JSX.Element {
   return (
     <Chart
       chartType={options.chartType}

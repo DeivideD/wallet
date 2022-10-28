@@ -1,4 +1,3 @@
-
 import { Container, TrasactionTypeContainer, ButtonBox } from './style';
 import Modal from 'react-modal';
 import closeImg from '../../../assets/close.svg'
@@ -54,7 +53,7 @@ export function ModalTrasaction({ title, transaction, setIsOpen, modalIsOpen, ac
         setPrice(transaction.price);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [getFund, transaction, action])
 
   function onCloseModal() {
@@ -69,6 +68,8 @@ export function ModalTrasaction({ title, transaction, setIsOpen, modalIsOpen, ac
     }
 
     const data = {
+
+      // eslint-disable-next-line camelcase
       monetary_fund_id: monetaryFundSelected.value,
       quantity,
       price,
