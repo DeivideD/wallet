@@ -1,7 +1,7 @@
 import { createContext, useCallback, useEffect, useState } from 'react';
 import { ReactNode } from 'react'
 import { Yeld } from '../../model/yeld';
-import { yeldService } from '../../service/yeld';
+import { yeldService } from '../../service/yeld/service-yeld';
 
 interface YeldContextProps {
   yelds: Yeld[];

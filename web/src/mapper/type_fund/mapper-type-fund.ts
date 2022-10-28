@@ -1,5 +1,5 @@
 import { VO } from "../../lib/vo";
-import { TypeFund } from "../../model/type_fund";
+import { TypeFund } from "../../model/type-fund";
 import { ToInteger, toString } from "../../lib/types";
 
 export function  TypeFoundToDTO(data: TypeFund ){

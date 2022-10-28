@@ -1,4 +1,4 @@
-import { MonetaryFund } from "./monetary_fund";
+import { MonetaryFund } from "./monetary-fund";
 
 export interface Transaction {
   id?: number;

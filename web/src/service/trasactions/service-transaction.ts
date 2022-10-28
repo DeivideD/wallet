@@ -1,4 +1,4 @@
-import { EntityToTrasaction } from "../../mapper/transaction";
+import { EntityToTrasaction } from "../../mapper/transaction/mapper-transaction";
 import { Transaction } from "../../model/transaction";
 import { api } from "../api";
 

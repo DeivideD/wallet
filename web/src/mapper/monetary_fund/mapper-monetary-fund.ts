@@ -1,7 +1,7 @@
 import { VO } from "../../lib/vo";
-import { MonetaryFund } from "../../model/monetary_fund";
+import { MonetaryFund } from "../../model/monetary-fund";
 import { ToInteger, toString, toVO, toDecimal } from "../../lib/types";
-import { TypeFoundToEntity } from "../type_fund";
+import { TypeFoundToEntity } from "../type_fund/mapper-type-fund";
 
 export function MonetaryFoundToDTO(data: MonetaryFund) {
   return {

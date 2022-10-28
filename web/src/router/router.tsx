@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
-import { FinancialAssets } from "../pages/financial-assets";
-import { Home } from "../pages/home";
+import { FinancialAssets } from "../pages/financial-assets/financial-assets";
+import { Home } from "../pages/home/home";
 import { Transactions } from "../pages/transactions/transactions";
-import { Yeld } from "../pages/yeld";
+import { Yeld } from "../pages/yeld/yelds";
 
 export function Router() {
   return (

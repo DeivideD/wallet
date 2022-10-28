@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import { GenericTable } from "../../components/table";
-import { PageContext } from "../../contexts/page-context";
-import { MonetaryFund } from "../../model/monetary_fund";
-import { getMonetaryFund } from "../../service/monetary_fund/monetary_fund";
+import { GenericTable } from "../../components/table/table";
+import { PageContext } from "../../contexts/page_context/page";
+import { MonetaryFund } from "../../model/monetary-fund";
+import { getMonetaryFund } from "../../service/monetary_fund/service-monetary-fund";
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import { Container } from "./style";
-import { ButonModalFooter } from "../buttom-modal";
+import { ButonModalFooter } from "../buttom-modal/buttom-modal";
 
 export function FinancialAssets() {
   const { setPage } = useContext(PageContext);

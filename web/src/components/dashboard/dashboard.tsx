@@ -1,10 +1,10 @@
-import { Summary } from "../summary/idex";
+import { Summary } from "../summary/summary";
 import { Container } from "./style";
 import totalImg  from '../../assets/total.svg'
 import incomeImg  from '../../assets/income.svg'
 import { useContext } from "react";
-import { TrasactionContext } from "../../contexts/transaction-context";
-import { YeldContext } from "../../contexts/yeld-context";
+import { TrasactionContext } from "../../contexts/transaction_context/transaction";
+import { YeldContext } from "../../contexts/yeld_context/yeld";
 
 export function Dashboard(){
   const { transactions } = useContext(TrasactionContext);

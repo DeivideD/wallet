@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useCallback, useEffect, useState } from "react";
 import { Transaction } from "../../model/transaction";
-import { transactionService } from "../../service/trasactions";
+import { transactionService } from "../../service/trasactions/service-transaction";
 
 interface TrasactionContextProps {
   transactions: Transaction[];

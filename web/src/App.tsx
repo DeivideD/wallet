@@ -1,11 +1,11 @@
-import { Header } from './components/header'
+import { Header } from './components/header/header'
 import { GlobalStyle } from './assets/style/global';
 import { BrowserRouter } from 'react-router-dom';
-import { ContextTransactionProvider } from './contexts/transaction-context';
+import { ContextTransactionProvider } from './contexts/transaction_context/transaction';
 import { Router } from './router/router';
-import { ContextYeldProvider } from './contexts/yeld-context';
-import { Footer } from './components/footer';
-import { ContextPageProvider } from './contexts/page-context';
+import { ContextYeldProvider } from './contexts/yeld_context/yeld';
+import { Footer } from './components/footer/footer';
+import { ContextPageProvider } from './contexts/page_context/page';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

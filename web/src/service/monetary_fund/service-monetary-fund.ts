@@ -1,5 +1,5 @@
-import { MonetaryFoundToEntity } from "../../mapper/monetary_fund";
-import { MonetaryFund } from "../../model/monetary_fund";
+import { MonetaryFoundToEntity } from "../../mapper/monetary_fund/mapper-monetary-fund";
+import { MonetaryFund } from "../../model/monetary-fund";
 import { api } from "../api";
 
 export async function getMonetaryFund(): Promise<MonetaryFund[]> {

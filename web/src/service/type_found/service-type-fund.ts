@@ -1,6 +1,6 @@
 import { ToInteger, toString } from "../../lib/types";
 import { VO } from "../../lib/vo";
-import { TypeFund } from "../../model/type_fund";
+import { TypeFund } from "../../model/type-fund";
 import { api } from "../api";
 
 export async function typeFundService(): Promise<TypeFund[]> {

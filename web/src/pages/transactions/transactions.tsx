@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import { GenericTable } from "../../components/table";
-import { PageContext } from "../../contexts/page-context";
-import { TrasactionContext } from "../../contexts/transaction-context";
-import { ButonModalFooter } from "../buttom-modal";
+import { GenericTable } from "../../components/table/table";
+import { PageContext } from "../../contexts/page_context/page";
+import { TrasactionContext } from "../../contexts/transaction_context/transaction";
+import { ButonModalFooter } from "../buttom-modal/buttom-modal";
 import { Container } from "./style";
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
-import { ModalTrasaction } from "./modal";
+import { ModalTrasaction } from "./modal/transaction-modal";
 import { Transaction } from "../../model/transaction";
 import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 

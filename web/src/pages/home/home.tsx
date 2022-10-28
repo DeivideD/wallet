@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
-import { MyChart } from "../../components/chart";
-import { Dashboard } from "../../components/dashboard";
-import { PageContext } from "../../contexts/page-context";
+import { MyChart } from "../../components/chart/chart";
+import { Dashboard } from "../../components/dashboard/dashboard";
+import { PageContext } from "../../contexts/page_context/page";
 
 import { ChartColumn, ChartDonat, Container } from "./style";
 

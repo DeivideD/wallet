@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import logoImg from "../../assets/logo.svg"
-import { PageContext } from "../../contexts/page-context";
-import { Menu } from "../menu";
+import { PageContext } from "../../contexts/page_context/page";
+import { Menu } from "../menu/menu";
 import { Container, Content } from "./style"
 
 

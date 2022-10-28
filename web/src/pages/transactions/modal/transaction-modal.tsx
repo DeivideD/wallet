@@ -5,11 +5,11 @@ import closeImg from '../../../assets/close.svg'
 import incomeImg from '../../../assets/income.svg'
 import { FormEvent, useCallback, useContext, useEffect, useState } from 'react';
 import { api } from '../../../service/api';
-import { TrasactionContext } from '../../../contexts/transaction-context';
+import { TrasactionContext } from '../../../contexts/transaction_context/transaction';
 import Select, { SingleValue } from 'react-select'
-import { getMonetaryFundByTypeFund } from '../../../service/monetary_fund/monetary_fund';
-import { MonetaryFund } from '../../../model/monetary_fund';
-import { EntityToTrasaction } from '../../../mapper/transaction';
+import { getMonetaryFundByTypeFund } from '../../../service/monetary_fund/service-monetary-fund';
+import { MonetaryFund } from '../../../model/monetary-fund';
+import { EntityToTrasaction } from '../../../mapper/transaction/mapper-transaction';
 import { toast } from 'react-toastify';
 import { Transaction } from '../../../model/transaction';
 

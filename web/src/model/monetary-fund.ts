@@ -1,4 +1,4 @@
-import {  TypeFund } from "./type_fund"
+import {  TypeFund } from "./type-fund"
 
 export interface MonetaryFund {
   id?: number;

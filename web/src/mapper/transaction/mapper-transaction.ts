@@ -1,7 +1,7 @@
 import { toDecimal, ToInteger, toVO } from "../../lib/types";
 import { VO } from "../../lib/vo";
 import { Transaction } from "../../model/transaction";
-import { MonetaryFoundToEntityResume } from "../monetary_fund";
+import { MonetaryFoundToEntityResume } from "../monetary_fund/mapper-monetary-fund";
 
 export function TrasactiontoDTO(data: Transaction){
   return {
