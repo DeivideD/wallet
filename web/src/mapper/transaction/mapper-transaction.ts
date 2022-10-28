@@ -6,7 +6,6 @@ import { MonetaryFoundToEntityResume } from "../monetary_fund/mapper-monetary-fu
 
 export function TrasactiontoDTO(data: Transaction){
   return {
-    id: data.id,
     monetary_fund_id: data.monetaryFund?.id, 
     quantity: data.quantity,
     price: data.price,

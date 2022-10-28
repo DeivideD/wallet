@@ -11,6 +11,7 @@ import { MonetaryFund } from '../../../model/monetary-fund';
 import { EntityToTrasaction } from '../../../mapper/transaction/mapper-transaction';
 import { toast } from 'react-toastify';
 import { Transaction } from '../../../model/transaction';
+import { editTransaction, saveTransaction } from '../../../service/trasactions/service-transaction';
 
 
 Modal.setAppElement('#root');
@@ -23,12 +24,12 @@ interface Props {
 }
 
 interface IntensSelct {
-  value: number | undefined;
+  value: MonetaryFund | undefined;
   label: string;
 }
 
 export function ModalTrasaction({ title, transaction, setIsOpen, modalIsOpen, action = "insert" }: Props) {
-  const defaultValueOption = { value: undefined, label: 'selecione...' }
+  const defaultValueOption = { value: {} as MonetaryFund, label: 'selecione...' }
   const [type, setType] = useState('FII');
   const [monetaryFunds, setMonetaryFunds] = useState<MonetaryFund[]>([])
   const [price, setPrice] = useState(0);
@@ -48,7 +49,7 @@ export function ModalTrasaction({ title, transaction, setIsOpen, modalIsOpen, ac
         setQuantity(0);
         setPrice(0);
       } else {
-        setMonetaryFundSelected({ value: transaction.monetaryFund?.id, label: transaction.monetaryFund?.name ?? '' });
+        setMonetaryFundSelected({ value: transaction.monetaryFund, label: transaction.monetaryFund?.name ?? '' });
         setQuantity(transaction.quantity);
         setPrice(transaction.price);
       }
@@ -67,43 +68,41 @@ export function ModalTrasaction({ title, transaction, setIsOpen, modalIsOpen, ac
       return;
     }
 
-    const data = {
-      // eslint-disable-next-line camelcase
-      monetary_fund_id: monetaryFundSelected.value,
+    const data: Transaction = {
+      monetaryFund: monetaryFundSelected?.value,
       quantity,
       price,
     }
 
-    if (action === 'insert') {
 
-      const dataPersist = await api.post('transactions', data)
-      const transaction = EntityToTrasaction(dataPersist.data);
-      setTransactions([
-        ...transactions,
-        transaction
-      ]
-      );
-      toast.success("Trasação adicionada!!!", { theme: "dark" })
+    if (action === 'insert') {
+      saveTransaction(data).then(dataTransaction => {
+        setTransactions([
+          ...transactions,
+          dataTransaction
+        ]
+        );
+        toast.success("Trasação adicionada!!!", { theme: "dark" })
+      }).catch((e: Error) => {
+        toast.error(e.message, { theme: "dark" })
+      });
+
     }else{
-      if (transaction !== undefined){
-        await api.put(`transactions/${transaction.id}`, data).catch((error: Error) => {
+      if (transaction?.id !== undefined){
+        editTransaction(transaction.id, data).then(dataTransaction => {
+          toast.success(`Transação de id: ${dataTransaction.id} atualizada`, { theme: "dark" });
+        }).catch((error: Error) => {
           toast.error(error.message, { theme: "dark" });
         });
-        //TODO: verificar o pq disso
-        transaction.quantity = data.quantity 
-        transaction.price = data.price 
 
         const updatedTrasactions = transactions.filter(item => item.id !== transaction.id)
         setTransactions([
           ...updatedTrasactions,
-          transaction
+          data
         ]
         );
-        toast.success("Trasação atualizada!!!", { theme: "dark" })
       }
     }
-
-
     onCloseModal();
   }
 
@@ -112,7 +111,7 @@ export function ModalTrasaction({ title, transaction, setIsOpen, modalIsOpen, ac
     setType(type);
   }
 
-  const monetaryOptions = monetaryFunds.map(data => ({ value: data.id, label: data.name }))
+  const monetaryOptions = monetaryFunds.map(data => ({ value: data, label: data.name }))
   return (
 
     <Modal
