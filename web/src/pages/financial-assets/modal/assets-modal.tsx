@@ -4,7 +4,6 @@ import closeImg from '../../../assets/close.svg';
 import { FormEvent, useCallback, useEffect, useState } from 'react';
 import { api } from '../../../service/api';
 import Select, { SingleValue } from 'react-select'
-import { EntityToTrasaction } from '../../../mapper/transaction/mapper-transaction';
 import { toast } from 'react-toastify';
 import { typeFundService } from '../../../service/type_found/service-type-fund';
 import { TypeFund } from '../../../model/type-fund';
@@ -39,18 +38,6 @@ export function ModalAssets({ title, monetaryFund, setIsOpen, modalIsOpen, actio
 
   useEffect(() => {
     getTypeFund();
-    if (monetaryFund !== undefined) {
-      if (action === 'insert') {
-        setTypeFundSelected(defaultValueOption);
-        setQuantity(0);
-        setEntrancePrice(0);
-      } else {
-        setTypeFundSelected({ value: monetaryFund.id, label: monetaryFund.name ?? '' });
-        setQuantity(monetaryFund.quantity);
-        setEntrancePrice(monetaryFund.entrancePrice);
-      }
-    }
-
   }, [getTypeFund, monetaryFund, action])
 
   function onCloseModal() {
@@ -60,7 +47,7 @@ export function ModalAssets({ title, monetaryFund, setIsOpen, modalIsOpen, actio
   async function hadleCreateNewTrasaction(e: FormEvent) {
     e.preventDefault();
     if (tipyFundSelected?.value === undefined) {
-      toast.warn("Selecione um ativo!!", { theme: "dark" })
+      toast.warn("Selecione um tipo!!", { theme: "dark" })
       return;
     }
     const data = {
@@ -72,21 +59,9 @@ export function ModalAssets({ title, monetaryFund, setIsOpen, modalIsOpen, actio
       // eslint-disable-next-line camelcase
       type_fund_id: tipyFundSelected.value,
     }
-
-    if (action === 'insert') {
-      const dataPersist = await api.post('monetary_funds', data)
-      toast.success(`${(dataPersist) } adicionada!!!` , { theme: "dark" })
-    } else {
-      if (monetaryFund !== undefined) {
-        await api.put(`monetary/${monetaryFund.id}`, data).catch((error: Error) => {
-          toast.error(error.message, { theme: "dark" });
-        });
-
-        toast.success("Trasação atualizada!!!", { theme: "dark" })
-      }
-    }
-
-
+    const dataPersist = await api.post('monetary_funds', data)
+    toast.success(`${(dataPersist) } adicionada!!!` , { theme: "dark" })
+    
     onCloseModal();
   }
 

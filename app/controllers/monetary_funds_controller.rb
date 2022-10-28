@@ -55,6 +55,6 @@ class MonetaryFundsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def monetary_fund_params
-    params.require(:monetary_fund).permit(:name, :type_fund_id, :category, :type)
+    params.require(:monetary_fund).permit(:name, :type_fund_id, :category, :type, :quantity, :entrance_price)
   end
 end

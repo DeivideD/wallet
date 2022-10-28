@@ -3,7 +3,6 @@ import { GenericTable } from "../../components/table/table";
 import { PageContext } from "../../contexts/page_context/page";
 import { MonetaryFund } from "../../model/monetary-fund";
 import { getMonetaryFund } from "../../service/monetary_fund/service-monetary-fund";
-import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import { Container } from "./style";
 import { ButonModalFooter } from "../buttom-modal/buttom-modal";
 import { ModalAssets } from "./modal/assets-modal"
@@ -26,7 +25,7 @@ export function FinancialAssets() {
     setTitle("Novo Ativo")
   }, [setPage]);
  
-  const openModalToEdit = (data: MonetaryFund) => {
+  const openModalInfo = (data: MonetaryFund) => {
     setCurrentMonetaryFund(data);
   }
 
@@ -44,7 +43,7 @@ export function FinancialAssets() {
       fund: data.name,
       quantity: data.quantity,
       entrancePrice: data.entrancePrice,
-      icon: <InfoIcon onClick={() => openModalToEdit(data)} />
+      icon: <InfoIcon onClick={() => openModalInfo(data)} />
     };
   });
 
