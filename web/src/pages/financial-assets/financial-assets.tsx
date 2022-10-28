@@ -6,22 +6,28 @@ import { getMonetaryFund } from "../../service/monetary_fund/service-monetary-fu
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import { Container } from "./style";
 import { ButonModalFooter } from "../buttom-modal/buttom-modal";
+import { ModalAssets } from "./modal/assets-modal"
+import InfoIcon from '@mui/icons-material/Info';
 
 export function FinancialAssets() {
   const { setPage } = useContext(PageContext);
   const [monetaryFunds, setMonetaryFunds] = useState<MonetaryFund[]>([] as MonetaryFund[])
   const [actionModal, setActionModal] = useState('insert');
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [title, setTitle] = useState("");
+  const [currentMonetaryFund, setCurrentMonetaryFund] = useState({} as MonetaryFund);
+
 
   const loadMonetaryFund = async () => setMonetaryFunds(await getMonetaryFund());
 
   useEffect(() => {
     loadMonetaryFund();
     setPage("Fundos Monetarios")
+    setTitle("Novo Ativo")
   }, [setPage]);
  
   const openModalToEdit = (data: MonetaryFund) => {
-    console.log(data);
+    setCurrentMonetaryFund(data);
   }
 
   const columns = [
@@ -38,7 +44,7 @@ export function FinancialAssets() {
       fund: data.name,
       quantity: data.quantity,
       entrancePrice: data.entrancePrice,
-      icon: <DriveFileRenameOutlineIcon onClick={() => openModalToEdit(data)} />
+      icon: <InfoIcon onClick={() => openModalToEdit(data)} />
     };
   });
 
@@ -46,20 +52,19 @@ export function FinancialAssets() {
     filterType: 'checkbox',
   };
 
-
   return (
     <Container>
       <Container>
         <GenericTable title={"Ativos"} data={data} columns={columns} options={options} />
         
         <ButonModalFooter openModal={setIsOpen} modalAction={setActionModal} />
-        {/* <ModalTrasaction
+        <ModalAssets
           modalIsOpen={modalIsOpen}
           setIsOpen={setIsOpen}
           title={title}
-          transaction={currentTransaction}
+          monetaryFund={currentMonetaryFund}
           action={actionModal}
-        /> */}
+        />
       </Container>
     </Container>
   )

@@ -68,7 +68,6 @@ export function ModalTrasaction({ title, transaction, setIsOpen, modalIsOpen, ac
     }
 
     const data = {
-
       // eslint-disable-next-line camelcase
       monetary_fund_id: monetaryFundSelected.value,
       quantity,

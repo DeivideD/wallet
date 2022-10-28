@@ -8,6 +8,7 @@ export const Container = styled.main`
     
     th {
       z-index: 0;
+      text-transform: uppercase;
     }
     td { 
       padding: .7rem 2.5rem;
