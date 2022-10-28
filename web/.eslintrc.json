@@ -27,6 +27,7 @@
     "no-multiple-empty-lines": ["warn",  { "max": 2, "maxEOF": 0 }],
     "no-alert": "error", 
     "no-debugger": "warn",
-    "no-multi-spaces":  ["warn", {"ignoreEOLComments": true}]
+    "no-multi-spaces":  ["warn", {"ignoreEOLComments": true}],
+    "@typescript-eslint/explicit-module-boundary-types": "off"
   }
 }

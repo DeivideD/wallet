@@ -1,6 +1,6 @@
 import { Container } from "./style";
 
-export function Yeld(){
+export function Yeld(): JSX.Element{
   return(
     <Container>
       Ola rendimentos

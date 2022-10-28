@@ -1,12 +1,13 @@
 
-import Chart, { GoogleChartWrapperChartType } from "react-google-charts";
+import Chart, { ChartWrapperOptions, GoogleChartWrapperChartType } from "react-google-charts";
 
 interface Props {
   chartType: GoogleChartWrapperChartType;
   width: string;
   height: string;
-  data: [] | object;
-  options?: object;
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  data: [] | {};
+  options?: ChartWrapperOptions["options"];
 }
 
 export function MyChart(options: Props): JSX.Element {
