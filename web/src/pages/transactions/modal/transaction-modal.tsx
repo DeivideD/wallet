@@ -3,12 +3,10 @@ import Modal from 'react-modal';
 import closeImg from '../../../assets/close.svg'
 import incomeImg from '../../../assets/income.svg'
 import { FormEvent, useCallback, useContext, useEffect, useState } from 'react';
-import { api } from '../../../service/api';
 import { TrasactionContext } from '../../../contexts/transaction_context/transaction';
 import Select, { SingleValue } from 'react-select'
 import { getMonetaryFundByTypeFund } from '../../../service/monetary_fund/service-monetary-fund';
 import { MonetaryFund } from '../../../model/monetary-fund';
-import { EntityToTrasaction } from '../../../mapper/transaction/mapper-transaction';
 import { toast } from 'react-toastify';
 import { Transaction } from '../../../model/transaction';
 import { editTransaction, saveTransaction } from '../../../service/trasactions/service-transaction';
@@ -48,10 +46,12 @@ export function ModalTrasaction({ title, transaction, setIsOpen, modalIsOpen, ac
         setMonetaryFundSelected(defaultValueOption);
         setQuantity(0);
         setPrice(0);
+        setType("FII")
       } else {
         setMonetaryFundSelected({ value: transaction.monetaryFund, label: transaction.monetaryFund?.name ?? '' });
         setQuantity(transaction.quantity);
         setPrice(transaction.price);
+        setType(transaction.monetaryFund?.typeFund?.initials ?? '')
       }
     }
 

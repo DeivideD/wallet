@@ -5,4 +5,5 @@ export interface Transaction {
   price: number;
   monetaryFund?: MonetaryFund
   quantity: number;
+  createdAt?: string;
 }

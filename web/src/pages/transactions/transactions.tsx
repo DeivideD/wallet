@@ -25,17 +25,12 @@ export function Transactions() {
     { name: "quantity", label: "quantidade", options: { filter: true, sort: true } },
     { name: "price", label: "preço", options: { filter: true, sort: true } },
     { name: "total", label: "total", options: { filter: false, sort: true } },
+    { name: "data", label: "Data", options: { filter: true, sort: true } },
     { name: "type", label: "TIPO", options: { filter: false, sort: false } },
     { name: "icon", label: "#", options: { filter: false, sort: false } }
   ];
-  const IconFund = () => {
-    return (
-      <>
-        <AutoGraphIcon />
-        <DomainIcon />
-      </>
-    );
-  }
+  const iconFund = (type: string) => ( type === 'FII' ? <DomainIcon /> : <AutoGraphIcon />);
+
   useEffect(() => {
     setPage("transaction")
   }, [setPage])
@@ -47,7 +42,8 @@ export function Transactions() {
       quantity: data.quantity,
       price: data.price,
       total: data.quantity * data.price,
-      type: <IconFund />,
+      data: data.createdAt,
+      type: iconFund(data.monetaryFund?.typeFund?.initials ?? ''),
       icon: <DriveFileRenameOutlineIcon onClick={() => openModalToEdit(data)} />
     };
   });

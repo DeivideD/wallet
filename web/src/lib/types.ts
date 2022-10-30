@@ -41,6 +41,19 @@ export function toBoolean(value: VoValues): boolean {
   throw new Error(`"${String(value)}" not a boolean`);
 }
 
+export function toDate(value: VoValues): string {
+  if (value === null) {
+    return "";
+  }
+  if (typeof value === "string") {
+    return new Intl.DateTimeFormat('pt-BR').format(new Date(value));
+  }
+  throw new Error(`"${String(value)}" not a valid date`);
+}
+
+
+
+
 export function ToInteger(value: VoValues): number {
   if (typeof value === "string") {
     return parseInt(value.trim());

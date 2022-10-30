@@ -23,13 +23,3 @@ export function MonetaryFoundToEntity(data: VO): MonetaryFund {
     typeFund: TypeFoundToEntity(toVO(data.type_fund))
   }
 }
-
-export function MonetaryFoundToEntityResume(data: VO): MonetaryFund {
-  return {
-    id: ToInteger(data.id),
-    name: toString(data.name),
-    category: toString(data.category),
-    quantity: ToInteger(data.quantity),
-    entrancePrice: toDecimal(data.entrance_price),
-  }
-}
