@@ -1,7 +1,7 @@
 import { createContext, useCallback, useEffect, useState } from 'react';
 import { ReactNode } from 'react'
 import { Yeld } from '../../model/yeld';
-import { yeldService } from '../../service/yeld/service-yeld';
+import { getYelds } from '../../service/yeld/service-yeld';
 
 interface YeldContextProps {
   yelds: Yeld[];
@@ -19,7 +19,7 @@ export function ContextYeldProvider({children}: propsChidren){
   const [yelds, setYelds] = useState<Yeld[]>([])
 
   const getYeld = useCallback( async () => {
-    return setYelds(await yeldService());
+    return setYelds(await getYelds());
   }, []);
 
   useEffect(() => {

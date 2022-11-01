@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { VO } from "../../lib/vo";
 import { MonetaryFund } from "../../model/monetary-fund";
-import { ToInteger, toString, toVO, toDecimal } from "../../lib/types";
+import { ToInteger, toString, toVO, toDecimal, toDate } from "../../lib/types";
 import { TypeFoundToEntity } from "../type_fund/mapper-type-fund";
 
 export function MonetaryFoundToDTO(data: MonetaryFund) {
@@ -20,6 +20,7 @@ export function MonetaryFoundToEntity(data: VO): MonetaryFund {
     quantity: ToInteger(data.quantity),
     entrancePrice: toDecimal(data.entrance_price),
     category: toString(data.category),
-    typeFund: TypeFoundToEntity(toVO(data.type_fund))
+    typeFund: TypeFoundToEntity(toVO(data.type_fund)),
+    createdAt: toDate(data.created_at),
   }
 }

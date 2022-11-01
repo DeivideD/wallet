@@ -7,4 +7,5 @@ export interface MonetaryFund {
   entrancePrice: number;
   typeFund?: TypeFund;
   category?: string;
+  createdAt?: string;
 }

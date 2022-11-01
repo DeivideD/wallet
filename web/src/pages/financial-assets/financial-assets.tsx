@@ -34,6 +34,7 @@ export function FinancialAssets() {
     { name: "fund", label: "fundo", options: { filter: true, sort: true } },
     { name: "quantity", label: "quantidade", options: { filter: false, sort: false } },
     { name: "entrancePrice", label: "preço de entrada", options: { filter: false, sort: false } },
+    { name: "data", label: "Data de Entrada", options: { filter: true, sort: true } },
     { name: "icon", label: "#", options: { filter: false, sort: false } },
   ];
 
@@ -43,6 +44,7 @@ export function FinancialAssets() {
       fund: data.name,
       quantity: data.quantity,
       entrancePrice: data.entrancePrice,
+      data: data.createdAt,
       icon: <InfoIcon onClick={() => openModalInfo(data)} />
     };
   });
