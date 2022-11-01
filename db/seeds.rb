@@ -19,12 +19,12 @@ MonetaryFund.create([
                     ])
 
 Transaction.create([
-                     { monetary_fund: MonetaryFund.find_by(name: 'BCFF11'), quantity: 50, price: 70.0 },
-                     { monetary_fund: MonetaryFund.find_by(name: 'CPTS11'), quantity: 10, price: 90.0 },
-                     { monetary_fund: MonetaryFund.find_by(name: 'CPTS11'), quantity: 70, price: 93.54 },
-                     { monetary_fund: MonetaryFund.find_by(name: 'ALZR11'), quantity: 10, price: 110.0 },
-                     { monetary_fund: MonetaryFund.find_by(name: 'BCFF11'), quantity: 20, price: 73.20 },
-                     { monetary_fund: MonetaryFund.find_by(name: 'CVVB3'), quantity: 100, price: 6.94 }
+                     { monetary_fund: MonetaryFund.find_by(name: 'BCFF11'), transaction_type: 'in', quantity: 50, price: 70.0 },
+                     { monetary_fund: MonetaryFund.find_by(name: 'CPTS11'), transaction_type: 'in', quantity: 10, price: 90.0 },
+                     { monetary_fund: MonetaryFund.find_by(name: 'CPTS11'), transaction_type: 'in', quantity: 70, price: 93.54 },
+                     { monetary_fund: MonetaryFund.find_by(name: 'ALZR11'), transaction_type: 'in', quantity: 10, price: 110.0 },
+                     { monetary_fund: MonetaryFund.find_by(name: 'BCFF11'), transaction_type: 'in', quantity: 20, price: 73.20 },
+                     { monetary_fund: MonetaryFund.find_by(name: 'CVVB3'), transaction_type: 'in', quantity: 100, price: 6.94 }
                    ])
 
 Yeld.create([

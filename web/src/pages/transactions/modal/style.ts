@@ -47,6 +47,15 @@ export const TrasactionTypeContainer = styled.div`
   gap: 0.5rem;
 `;
 
+export const TwoColumnsContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  
+  div {
+    display: inline-block;
+  }
+`;
+
 interface IsActive {
   isActive: boolean;
   activeColor: string;

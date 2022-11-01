@@ -1,7 +1,8 @@
-import { Container, TrasactionTypeContainer, ButtonBox } from './style';
+import { Container, TrasactionTypeContainer, ButtonBox, TwoColumnsContainer } from './style';
 import Modal from 'react-modal';
 import closeImg from '../../../assets/close.svg'
 import incomeImg from '../../../assets/income.svg'
+import outmeImg from '../../../assets/outcome.svg'
 import { FormEvent, useCallback, useContext, useEffect, useState } from 'react';
 import { TrasactionContext } from '../../../contexts/transaction_context/transaction';
 import Select, { SingleValue } from 'react-select'
@@ -10,6 +11,8 @@ import { MonetaryFund } from '../../../model/monetary-fund';
 import { toast } from 'react-toastify';
 import { Transaction } from '../../../model/transaction';
 import { editTransaction, saveTransaction } from '../../../service/trasactions/service-transaction';
+import { TypeFund } from '../../../model/type-fund';
+import { typeFundService } from '../../../service/type_found/service-type-fund';
 
 
 Modal.setAppElement('#root');
@@ -21,41 +24,56 @@ interface Props {
   transaction?: Transaction;
 }
 
-interface IntensSelct {
+interface MonetaryFundIntensSelect {
   value: MonetaryFund | undefined;
   label: string;
 }
 
+interface TypeFundIntensSelect {
+  value: string;
+  label: string;
+}
+
 export function ModalTrasaction({ title, transaction, setIsOpen, modalIsOpen, action = "insert" }: Props) {
-  const defaultValueOption = { value: {} as MonetaryFund, label: 'selecione...' }
-  const [type, setType] = useState('FII');
-  const [monetaryFunds, setMonetaryFunds] = useState<MonetaryFund[]>([])
+  const defaultValueOptionMonetaryFund = { value: {} as MonetaryFund, label: 'selecione...' }
+  const defaultValueOptionTypeFund = { value: '', label: 'selecione...' }
+  const [transactionType, setTransactionType] = useState('in');
+  const [monetaryFunds, setMonetaryFunds] = useState<MonetaryFund[]>([]);
+  const [typeFunds, setTypeFunds] = useState<TypeFund[]>([])
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
-  const [monetaryFundSelected, setMonetaryFundSelected] = useState<SingleValue<IntensSelct>>(defaultValueOption);
+  const [monetaryFundSelected, setMonetaryFundSelected] = useState<SingleValue<MonetaryFundIntensSelect>>(defaultValueOptionMonetaryFund);
+  const [typeFundSelected, setTypeFundSelected] = useState<SingleValue<TypeFundIntensSelect>>(defaultValueOptionTypeFund);
 
 
   const { transactions, setTransactions } = useContext(TrasactionContext);
 
-  const getFund = useCallback(async () => setMonetaryFunds(await getMonetaryFundByTypeFund(type)), [type]);
+  const getMyMonetaryFunds = useCallback(async () => {
+    setMonetaryFunds(await getMonetaryFundByTypeFund(typeFundSelected?.value ?? ''));
+  }, [typeFundSelected]);
+
+  const getMyTypeFunds = useCallback(async () => {
+    setTypeFunds(await typeFundService());
+  }, [typeFundSelected]);
 
   useEffect(() => {
-    getFund();
+    getMyMonetaryFunds();
+    getMyTypeFunds();
     if (transaction !== undefined) {
       if (action === 'insert') {
-        setMonetaryFundSelected(defaultValueOption);
+        setMonetaryFundSelected(defaultValueOptionMonetaryFund);
         setQuantity(0);
         setPrice(0);
-        setType("FII")
+        setTransactionType("in")
       } else {
         setMonetaryFundSelected({ value: transaction.monetaryFund, label: transaction.monetaryFund?.name ?? '' });
         setQuantity(transaction.quantity);
         setPrice(transaction.price);
-        setType(transaction.monetaryFund?.typeFund?.initials ?? '')
+        setTransactionType(transaction.transactionType)
       }
     }
 
-  }, [getFund, transaction, action])
+  }, [getMyMonetaryFunds, transaction, action])
 
   function onCloseModal() {
     setIsOpen(false);
@@ -72,6 +90,7 @@ export function ModalTrasaction({ title, transaction, setIsOpen, modalIsOpen, ac
       monetaryFund: monetaryFundSelected?.value,
       quantity,
       price,
+      transactionType,
     }
 
 
@@ -87,8 +106,8 @@ export function ModalTrasaction({ title, transaction, setIsOpen, modalIsOpen, ac
         toast.error(e.message, { theme: "dark" })
       });
 
-    }else{
-      if (transaction?.id !== undefined){
+    } else {
+      if (transaction?.id !== undefined) {
         editTransaction(transaction.id, data).then(dataTransaction => {
           toast.success(`Transação de id: ${dataTransaction.id} atualizada`, { theme: "dark" });
         }).catch((error: Error) => {
@@ -106,12 +125,10 @@ export function ModalTrasaction({ title, transaction, setIsOpen, modalIsOpen, ac
     onCloseModal();
   }
 
-  const updateSelection = (type: string) => {
-    setMonetaryFundSelected(defaultValueOption);
-    setType(type);
-  }
-
   const monetaryOptions = monetaryFunds.map(data => ({ value: data, label: data.name }))
+
+  const typeFundOptions = typeFunds.map(data => ({ value: data.initials, label: data.name }))
+
   return (
 
     <Modal
@@ -129,45 +146,61 @@ export function ModalTrasaction({ title, transaction, setIsOpen, modalIsOpen, ac
         <img src={closeImg} alt="Fechar Modal" />
       </button>
       <Container onSubmit={hadleCreateNewTrasaction}>
+
         <h2>{title}</h2>
+        <label>Tipo</label>
+        <Select
+          options={typeFundOptions}
+          onChange={e => setTypeFundSelected(e)}
+          value={typeFundSelected}
+        // isDisabled={true} 
+        /><br />
+
         <label>Ativo</label>
         <Select
           options={monetaryOptions}
           onChange={e => setMonetaryFundSelected(e)}
           value={monetaryFundSelected}
+        // isDisabled={true} +
         /><br />
-        <label>Quantidade</label>
-        <input
-          type="number"
-          value={quantity}
-          onChange={e => setQuantity(Number(e.target.value))}
-          placeholder="Quantidade"
-        /><br />
-        <label>Valor</label>
-        <input
-          type="number"
-          value={price}
-          onChange={e => setPrice(Number(e.target.value))}
-          placeholder="valor"
-        /><br />
+        <TwoColumnsContainer>
+          <div>
+            <label>Quantidade</label>
+            <input
+              type="number"
+              value={quantity}
+              onChange={e => setQuantity(Number(e.target.value))}
+              placeholder="Quantidade"
+            /><br />
+          </div>
+          <div>
+            <label>Valor</label>
+            <input
+              type="number"
+              value={price}
+              onChange={e => setPrice(Number(e.target.value))}
+              placeholder="valor"
+            /><br />
+          </div>
+        </TwoColumnsContainer>
         <TrasactionTypeContainer>
           <ButtonBox
             type="button"
-            isActive={type === 'FII'}
-            onClick={() => updateSelection('FII')}
+            isActive={transactionType === 'in'}
+            onClick={() => setTransactionType('in')}
             activeColor="#33CC95"
           >
-            <img src={incomeImg} alt="Fundos" />
-            <span>Fundos Imobiliarios</span>
+            <img src={incomeImg} alt="Compra" />
+            <span>Compra</span>
           </ButtonBox>
           <ButtonBox
             type="button"
-            isActive={type === 'AC'}
-            onClick={() => updateSelection("AC")}
-            activeColor="#33CC95"
+            isActive={transactionType === 'out'}
+            onClick={() => setTransactionType("out")}
+            activeColor="#F00"
           >
-            <img src={incomeImg} alt="Ações" />
-            <span>Ações B3</span>
+            <img src={outmeImg} alt="Venda" />
+            <span>Venda</span>
           </ButtonBox>
         </TrasactionTypeContainer>
         <button type="submit">Salvar</button>

@@ -51,6 +51,22 @@ export function toDate(value: VoValues): string {
   throw new Error(`"${String(value)}" not a valid date`);
 }
 
+export function toMoney(value: VoValues): string {
+  if (typeof value === "string") {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(ToInteger(value));
+  }
+  if (typeof value === "number") {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(value);
+  }
+  throw new Error(`"${String(value)}"is not valid`);
+}
+
 
 
 
