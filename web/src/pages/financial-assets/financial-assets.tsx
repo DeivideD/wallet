@@ -53,6 +53,10 @@ export function FinancialAssets() {
     filterType: 'checkbox',
   };
 
+  const attTable = (fund: MonetaryFund) => {
+    setMonetaryFunds([...monetaryFunds, fund]);
+  }
+
   return (
     <Container>
       <Container>
@@ -65,6 +69,7 @@ export function FinancialAssets() {
           title={title}
           monetaryFund={currentMonetaryFund}
           action={actionModal}
+          attTable={attTable}
         />
       </Container>
     </Container>

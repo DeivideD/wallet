@@ -35,22 +35,23 @@ interface TypeFundIntensSelect {
 }
 
 export function ModalTrasaction({ title, transaction, setIsOpen, modalIsOpen, action = "insert" }: Props) {
-  const defaultValueOptionMonetaryFund = { value: {} as MonetaryFund, label: 'selecione...' }
-  const defaultValueOptionTypeFund = { value: '', label: 'selecione...' }
+  const defaultValueOptionMonetaryFund = { value: {} as MonetaryFund, label: 'selecione...' };
+  const defaultValueOptionTypeFund = { value: '', label: 'selecione...' };
   const [transactionType, setTransactionType] = useState('in');
   const [monetaryFunds, setMonetaryFunds] = useState<MonetaryFund[]>([]);
-  const [typeFunds, setTypeFunds] = useState<TypeFund[]>([])
+  const [typeFunds, setTypeFunds] = useState<TypeFund[]>([]);
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const [monetaryFundSelected, setMonetaryFundSelected] = useState<SingleValue<MonetaryFundIntensSelect>>(defaultValueOptionMonetaryFund);
   const [typeFundSelected, setTypeFundSelected] = useState<SingleValue<TypeFundIntensSelect>>(defaultValueOptionTypeFund);
+  const [typeToFind, setTypeToFind] =useState('FII')
 
 
   const { transactions, setTransactions } = useContext(TrasactionContext);
 
   const getMyMonetaryFunds = useCallback(async () => {
-    setMonetaryFunds(await getMonetaryFundByTypeFund(typeFundSelected?.value ?? ''));
-  }, [typeFundSelected]);
+    setMonetaryFunds(await getMonetaryFundByTypeFund(typeToFind ?? ''));
+  }, [typeToFind]);
 
   const getMyTypeFunds = useCallback(async () => {
     setTypeFunds(await typeFundService());
@@ -67,6 +68,10 @@ export function ModalTrasaction({ title, transaction, setIsOpen, modalIsOpen, ac
         setTransactionType("in")
       } else {
         setMonetaryFundSelected({ value: transaction.monetaryFund, label: transaction.monetaryFund?.name ?? '' });
+        setTypeFundSelected({ 
+          value: transaction.monetaryFund?.typeFund?.initials ?? '', 
+          label: transaction.monetaryFund?.typeFund?.name ?? ''
+        });
         setQuantity(transaction.quantity);
         setPrice(transaction.price);
         setTransactionType(transaction.transactionType)
@@ -87,12 +92,11 @@ export function ModalTrasaction({ title, transaction, setIsOpen, modalIsOpen, ac
     }
 
     const data: Transaction = {
-      monetaryFund: monetaryFundSelected?.value,
+      monetaryFund: monetaryFundSelected.value,
       quantity,
       price,
       transactionType,
     }
-
 
     if (action === 'insert') {
       saveTransaction(data).then(dataTransaction => {
@@ -125,9 +129,14 @@ export function ModalTrasaction({ title, transaction, setIsOpen, modalIsOpen, ac
     onCloseModal();
   }
 
-  const monetaryOptions = monetaryFunds.map(data => ({ value: data, label: data.name }))
+  const monetaryOptions = monetaryFunds.map(data => ({ value: data, label: data.name }));
 
-  const typeFundOptions = typeFunds.map(data => ({ value: data.initials, label: data.name }))
+  const typeFundOptions = typeFunds.map(data => ({ value: data.initials, label: data.name }));
+
+  const attSelectType = (e: SingleValue<TypeFundIntensSelect>) => {
+    setTypeFundSelected({value: e?.value ?? '', label: e?.label ?? ''});
+    setTypeToFind(e?.value ?? '');
+  }
 
   return (
 
@@ -151,7 +160,7 @@ export function ModalTrasaction({ title, transaction, setIsOpen, modalIsOpen, ac
         <label>Tipo</label>
         <Select
           options={typeFundOptions}
-          onChange={e => setTypeFundSelected(e)}
+          onChange={e => attSelectType(e)}
           value={typeFundSelected}
         // isDisabled={true} 
         /><br />

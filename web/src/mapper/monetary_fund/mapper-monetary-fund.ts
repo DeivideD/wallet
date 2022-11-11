@@ -8,6 +8,8 @@ export function MonetaryFoundToDTO(data: MonetaryFund) {
   return {
     id: data.id,
     name: data.name,
+    quantity: data.quantity,
+    entrancePrice: data.entrancePrice, 
     type_fund_id: data.typeFund?.id,
     category: data.category,
   }

@@ -2,12 +2,12 @@ import { Container } from './style';
 import Modal from 'react-modal';
 import closeImg from '../../../assets/close.svg';
 import { FormEvent, useCallback, useEffect, useState } from 'react';
-import { api } from '../../../service/api';
 import Select, { SingleValue } from 'react-select'
 import { toast } from 'react-toastify';
 import { typeFundService } from '../../../service/type_found/service-type-fund';
 import { TypeFund } from '../../../model/type-fund';
 import { MonetaryFund } from '../../../model/monetary-fund';
+import { saveMonetaryFund } from '../../../service/monetary_fund/service-monetary-fund';
 
 
 Modal.setAppElement('#root');
@@ -17,21 +17,22 @@ interface Props {
   title: string;
   action?: string;
   monetaryFund?: MonetaryFund;
+  attTable: (array: MonetaryFund) => void;
 }
 
-interface IntensSelct {
-  value: number | undefined;
+interface IntensSelect {
+  value: TypeFund;
   label: string;
 }
 
-export function ModalAssets({ title, monetaryFund, setIsOpen, modalIsOpen, action = "insert" }: Props) {
-  const defaultValueOption = { value: undefined, label: 'selecione...' }
+export function ModalAssets({ title, monetaryFund, setIsOpen, modalIsOpen, action = "insert", attTable }: Props) {
+  const defaultValueOption = { value: {} as TypeFund , label: 'selecione...' }
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
   const [entrancePrice, setEntrancePrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const [typeFunds, setTypeFunds] = useState<TypeFund[]>([]);
-  const [tipyFundSelected, setTypeFundSelected] = useState<SingleValue<IntensSelct>>(defaultValueOption);
+  const [tipyFundSelected, setTypeFundSelected] = useState<SingleValue<IntensSelect>>(defaultValueOption);
 
 
   const getTypeFund = useCallback(async () => setTypeFunds(await typeFundService()), []);
@@ -46,26 +47,29 @@ export function ModalAssets({ title, monetaryFund, setIsOpen, modalIsOpen, actio
 
   async function hadleCreateNewTrasaction(e: FormEvent) {
     e.preventDefault();
-    if (tipyFundSelected?.value === undefined) {
+    if (tipyFundSelected?.value?.id === undefined) {
       toast.warn("Selecione um tipo!!", { theme: "dark" })
       return;
     }
-    const data = {
+    const data: MonetaryFund = {
       name,
       category,
       quantity,
-      // eslint-disable-next-line camelcase
-      entrance_price: entrancePrice,
-      // eslint-disable-next-line camelcase
-      type_fund_id: tipyFundSelected.value,
+      entrancePrice: entrancePrice,
+      typeFund: tipyFundSelected.value,
     }
-    const dataPersist = await api.post('monetary_funds', data)
-    toast.success(`${(dataPersist) } adicionada!!!` , { theme: "dark" })
-    
+    saveMonetaryFund(data).then(dataTransaction => {
+      attTable(dataTransaction);
+      debugger
+      toast.success("Trasação adicionada!!!", { theme: "dark" })
+    }).catch((e: Error) => {
+      toast.error(e.message, { theme: "dark" })
+    });
+
     onCloseModal();
   }
 
-  const monetaryOptions = typeFunds.map(data => ({ value: data.id, label: data.name }))
+  const monetaryOptions = typeFunds.map(data => ({ value: data, label: data.name }))
   return (
 
     <Modal
